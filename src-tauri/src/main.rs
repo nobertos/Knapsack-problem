@@ -3,18 +3,27 @@
     windows_subsystem = "windows"
 )]
 
+mod objet;
+
 use std::time::{SystemTime, UNIX_EPOCH};
+
+use objet::Objet;
 
 #[tauri::command]
 fn on_button_clicked() -> String {
     let start = SystemTime::now();
+    let mut objet = Objet::new("coffee", 1000, 120);
     let since_the_epoch = start
         .duration_since(UNIX_EPOCH)
         .expect("Time went backwards")
         .as_millis();
     format!(
-        "on_button_clicked called from Rust! (timestamp: {}ms)",
-        since_the_epoch
+        "on_button_clicked called from Rust! (timestamp: {}ms)\n
+        btw the {} has the weight of {} and the value of {}",
+        since_the_epoch,
+        objet.nom(),
+        objet.poids(),
+        objet.gain()
     )
 }
 
