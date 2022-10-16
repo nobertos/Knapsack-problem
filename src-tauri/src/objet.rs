@@ -1,11 +1,14 @@
-pub(crate) struct Objet {
+use serde::{Deserialize, Serialize};
+
+#[derive(Default, Clone, Serialize, Deserialize)]
+pub(super) struct Objet {
     nom: String,
     poids: u64,
     gain: u64,
 }
 
 impl Objet {
-    pub(crate) fn new(nom: &str, poids: u64, gain: u64) -> Self {
+    pub(super) fn new(nom: &str, poids: u64, gain: u64) -> Self {
         Objet {
             nom: nom.to_string(),
             poids,
@@ -13,15 +16,15 @@ impl Objet {
         }
     }
 
-    pub(crate) fn nom(&self) -> &str {
+    pub(super) fn nom(&self) -> &str {
         &self.nom
     }
 
-    pub(crate) fn poids(&self) -> u64 {
+    pub(super) fn poids(&self) -> u64 {
         self.poids
     }
 
-    pub(crate) fn gain(&self) -> u64 {
+    pub(super) fn gain(&self) -> u64 {
         self.gain
     }
 }

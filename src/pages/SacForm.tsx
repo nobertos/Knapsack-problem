@@ -3,14 +3,20 @@ import FormInput from "../components/FormInput"
 import Button from "../components/Button"
 import Form from "../components/Form"
 
-export interface FormProps {
-  onSubmit: (values: Object) => void
+interface FormProps {
+  onSubmit: (values: number) => void
+}
+interface FormValues {
+  poids_maximal: number
 }
 
 const SacForm: React.FC<FormProps> = ({ onSubmit }) => {
-  const [formFields, setFormFields] = useState({
+  const [formFields, setFormFields] = useState<FormValues>({
     poids_maximal: 0,
   })
+  useEffect(() => {
+    console.log("formFields", formFields)
+  }, [formFields])
 
   return (
     <>
@@ -28,7 +34,7 @@ const SacForm: React.FC<FormProps> = ({ onSubmit }) => {
 
       <div className="flex h-full flex-col gap-10 rounded-lg bg-white p-8 shadow-lg lg:col-span-3 lg:p-12">
         <h1 className="text-2xl font-bold text-gray-900">Sac à dos</h1>
-        <Form value={formFields}>
+        <Form value={formFields} onChange={setFormFields}>
           {" "}
           <FormInput
             label="Poids maximal"
@@ -39,7 +45,7 @@ const SacForm: React.FC<FormProps> = ({ onSubmit }) => {
           />
           <Button
             onClick={() => {
-              onSubmit(formFields)
+              onSubmit(formFields.poids_maximal)
             }}
             type="submit"
             className="mt-auto flex w-full items-center justify-center rounded-lg bg-black px-5 py-3 text-white sm:w-auto"

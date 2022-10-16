@@ -13,7 +13,7 @@ export const FormContext = createContext<FormContextProps>({
 })
 
 interface FormProps {
-  onChange?: (values: Object) => void
+  onChange?: (values: any) => void
   value?: Object
   children?: React.ReactNode[]
 }
