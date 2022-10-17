@@ -35,7 +35,6 @@ const Home: NextPage = () => {
     // parse poids_maximal to number
 
     setPoidsMaximal(parseInt(poids_maximal))
-    alert(JSON.stringify(poidsMaximal))
     setSacVisible(false)
   }
   const [objets, setObjets] = useState<Objet[]>([])
@@ -71,7 +70,6 @@ const Home: NextPage = () => {
                     gain: parseInt(values.gain),
                   }
                   setObjets([...objets, objet])
-                  alert(JSON.stringify(objets))
                 }}
                 onSubmit={onObjetsSubmit}
               />

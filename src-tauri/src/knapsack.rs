@@ -46,6 +46,17 @@ impl Knapsack {
         left_knapsack = left_knapsack.recursive_fill(&objets[1..]);
         Knapsack::max(left_knapsack, self.recursive_fill(&objets[1..]))
     }
+    //
+    // pub(super) fn dynamic_fill(&mut self, objets: &[Objet]) -> Knapsack {
+    //     let mut grid: Vec<Vec<Objet>>;
+    //     for (num_objet, objet) in objets.into_iter().enumerate() {
+    //         for weight in 0..self.poids_maximal {
+    //             if objet.poids() > weight {
+    //
+    //             }
+    //         }
+    //     }
+    // }
 }
 #[test]
 fn knapsack_recursive_test() {
