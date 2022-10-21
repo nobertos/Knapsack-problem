@@ -1,6 +1,8 @@
 use serde::{Deserialize, Serialize};
 
-use crate::objet::Objet;
+use super::array::Array;
+use super::objet::Objet;
+
 use std::mem;
 #[derive(Default, Clone, Serialize, Deserialize)]
 pub(super) struct Knapsack {
@@ -47,16 +49,31 @@ impl Knapsack {
         Knapsack::max(left_knapsack, self.recursive_fill(&objets[1..]))
     }
     //
-    // pub(super) fn dynamic_fill(&mut self, objets: &[Objet]) -> Knapsack {
-    //     let mut grid: Vec<Vec<Objet>>;
-    //     for (num_objet, objet) in objets.into_iter().enumerate() {
-    //         for weight in 0..self.poids_maximal {
-    //             if objet.poids() > weight {
-    //
-    //             }
-    //         }
-    //     }
-    // }
+    pub(super) fn dynamic_fill(&mut self, objets: &[Objet]) -> Knapsack {
+        let width = (self.poids_maximal + 1) as usize;
+        let height = objets.len() + 1;
+        let mut grid = Array::new(width, height);
+        for num_objet in 1..height {
+            let objet = &objets[num_objet - 1];
+            for poids in 0..width {
+                let do_not_take = grid.get(num_objet - 1, poids).clone();
+
+                let do_take = if objet.poids() as usize <= poids {
+                    let mut knapsack_temp = grid
+                        .get(num_objet - 1, poids - objet.poids() as usize)
+                        .clone();
+                    knapsack_temp.insert(objet.clone());
+                    knapsack_temp
+                } else {
+                    Knapsack::new(self.poids_maximal)
+                };
+
+                let gain_optimal = Knapsack::max(do_not_take, do_take);
+                grid.set(num_objet, poids, gain_optimal)
+            }
+        }
+        grid.last()
+    }
 }
 #[test]
 fn knapsack_recursive_test() {
