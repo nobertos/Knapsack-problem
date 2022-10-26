@@ -1,3 +1,6 @@
+# Knapsack problem solution
+this is a solution to a classical problem in computer science, which was implemented using tauri with next.js as a frontend.
+the assignment was to find a solution for the knapsack problem using dynamic programming.
 # Tauri + Next.js Template
 
 ![Tauri window screenshot](public/tauri-nextjs-template_screenshot.png)
